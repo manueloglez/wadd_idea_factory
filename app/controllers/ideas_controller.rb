@@ -17,7 +17,6 @@ class IdeasController < ApplicationController
   def show
     @review = Review.new
     @reviews = @idea.reviews
-    @like = @idea.likes.find_by(user: current_user)
   end
   def index
     @ideas = Idea.all

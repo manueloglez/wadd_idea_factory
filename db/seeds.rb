@@ -6,7 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Like.delete_all
 Review.delete_all
 Idea.delete_all
 User.delete_all
@@ -18,7 +17,7 @@ me = User.create(
   password: PASS,
 )
 
-9.times do
+4.times do
   User.create(
     name: Faker::Name.first_name,
     email: Faker::Internet.email,
@@ -28,22 +27,20 @@ end
 
 users = User.all
 
-30.times do 
+15.times do 
   i = Idea.create(
     title: Faker::Hacker.say_something_smart,
     description: Faker::ChuckNorris.fact,
     user: users.sample,
   )
 
-  if i.valid?
-    rand(1..6).times do
-      Review.create(
-        rating: rand(1..5),
-        description: Faker::Lorem.sentence(word_count: rand(7..30)),
-        idea: i,
-        user: users.sample,
-      )
-    end
-    i.likers = users.shuffle.slice(0, rand(users.count))
+  rand(1..6).times do
+    Review.create(
+      rating: rand(1..5),
+      description: Faker::Lorem.sentence(word_count: rand(7..30)),
+      idea: i,
+      user: users.sample,
+    )
   end
+
 end
