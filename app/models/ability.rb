@@ -8,5 +8,8 @@ class Ability
     alias_action :create, :read, :update, :destroy, to: :crud
 
     can :crud, Idea, user_id: user.id
+    can :destroy, Review do |review|
+      user == review.user
+    end
   end
 end
