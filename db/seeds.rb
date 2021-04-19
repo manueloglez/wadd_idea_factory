@@ -6,7 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Review.delete_all
 Idea.delete_all
 User.delete_all
 PASS = '123'
@@ -28,19 +27,9 @@ end
 users = User.all
 
 15.times do 
-  i = Idea.create(
+  Idea.create(
     title: Faker::Hacker.say_something_smart,
     description: Faker::ChuckNorris.fact,
     user: users.sample,
   )
-
-  rand(1..6).times do
-    Review.create(
-      rating: rand(1..5),
-      description: Faker::Lorem.sentence(word_count: rand(7..30)),
-      idea: i,
-      user: users.sample,
-    )
-  end
-
 end
