@@ -2,7 +2,7 @@
 
 <div class="my-3">
   <h2> <%= @idea.title %> </h2>
-  <small>By <%= @idea.user.name %> </small>
+  <small>By <%= @idea.user.name %> - <%= pluralize(@idea.likes.count, 'like' ) %></small>
   <p> <%= @idea.description %> </p>
 
   <%= link_to 'Edit', edit_idea_path(@idea), class: 'btn btn-warning' %>
@@ -13,6 +13,26 @@
     method: :delete,
     data: {confirm: "Are you sure you want to delete this great idea?"}, 
     class: 'btn btn-danger' )%>
+  
+  <% if @like.present? %>
+    <%= 
+      link_to(
+        "Unlike",
+        idea_like_path(@idea, @like),
+        method: :delete,
+        class: "btn btn-danger"
+      )
+    %>
+  <% else %>
+    <%= 
+      link_to(
+        "Like",
+        idea_likes_path(@idea),
+        method: :post,
+        class: "btn btn-primary"
+      )
+    %>
+  <% end %>
 
 </div>
 <% if user_signed_in? %>

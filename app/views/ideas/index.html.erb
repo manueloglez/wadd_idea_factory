@@ -1,11 +1,33 @@
 <h1>Every Idea</h1>
 <% @ideas.each do |idea| %>
+  <% like = idea.likes.find_by(user: current_user) %>
   <div>
     <h5><%= link_to(idea.title, idea_path(idea)) %></h5>
     <p>
       <%= idea.description %> 
     </p>
-    <small>By <%= idea.user.name %> </small>
+    <small>By <%= idea.user.name %> 
+      - 
+    <%= pluralize(idea.likes.count, 'like' ) %>  </small>
+    <% if like.present? %>
+    <%= 
+      link_to(
+        "Unlike",
+        idea_like_path(idea, like),
+        method: :delete,
+        class: "btn btn-danger"
+      )
+    %>
+  <% else %>
+    <%= 
+      link_to(
+        "Like",
+        idea_likes_path(idea),
+        method: :post,
+        class: "btn btn-primary"
+      )
+    %>
+  <% end %>
     <hr>
   </div>
 <% end %>
