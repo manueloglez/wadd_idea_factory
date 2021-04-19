@@ -1,11 +1,10 @@
-<h1>Every Idea</h1>
+<h1>All Questions</h1>
 <% @ideas.each do |idea| %>
   <div>
     <h5><%= link_to(idea.title, idea_path(idea)) %></h5>
     <p>
       <%= idea.description %> 
     </p>
-    <small>By <%= idea.user.name %> </small>
     <hr>
   </div>
 <% end %>
